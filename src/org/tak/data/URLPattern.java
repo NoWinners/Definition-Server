@@ -1,9 +1,9 @@
 package org.tak.data;
 
-import org.tak.Server;
 import org.tak.servelets.AbstractServlet;
 import org.tak.servelets.LoadId;
 import org.tak.servelets.LoadName;
+import org.tak.servelets.LoadNameNoted;
 
 import java.lang.reflect.Constructor;
 import java.util.regex.Matcher;
@@ -15,7 +15,8 @@ import java.util.regex.Pattern;
  */
 public enum URLPattern {
     LOAD_ID(Pattern.compile("/load/([0-9,]+)"), LoadId.class),
-    LOAD_NAME(Pattern.compile("/load/(.*)"), Server.getMode().equals(Mode.ITEM) ? null : LoadName.class),; //todo
+    LOAD_NAME_NOTED(Pattern.compile("/load/noted/(.*)"), LoadNameNoted.class),
+    LOAD_NAME(Pattern.compile("/load/(.*)"), LoadName.class),;
     private final Pattern         pattern;
     private final AbstractServlet servlet;
 

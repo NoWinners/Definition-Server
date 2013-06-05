@@ -9,9 +9,9 @@ import org.tak.impl.ItemDef;
  * 6/2/13
  */
 public enum Mode {
-    NPC("npc", IdentifiableDef.class, "Npcs-762.xml"),
+    NPC("npc", IdentifiableDef.class, "Npcs-lowercase.xml"),
     GAME_OBJECT("gameobject", IdentifiableDef.class, ""),
-    ITEM("item", ItemDef.class, "Items-762.xml");
+    ITEM("item", ItemDef.class, "Items-lowercase.xml");
 
 
     private final String                            tagName;
@@ -23,7 +23,6 @@ public enum Mode {
         this.tagName = tagName;
         this.definition = definition;
         this.fileLocation = BASE + fileLocation;
-
     }
 
     public String getTagName() {
