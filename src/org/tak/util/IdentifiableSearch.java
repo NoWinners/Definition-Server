@@ -3,6 +3,8 @@ package org.tak.util;
 import org.tak.commons.Filter;
 import org.tak.commons.Identifiable;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,10 +14,17 @@ import java.util.List;
  */
 public class IdentifiableSearch {
     public static List<Identifiable> searchByName(List<Identifiable> list, String... names) {
+        for (int i = 0 ; i < names.length; i++) {
+            try {
+                names[i] = URLDecoder.decode(names[i], "UTF-8");
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+        }
         ArrayList<Identifiable> toReturn = new ArrayList<>();
         for (Identifiable identifiable : list) {
             for (String name : names) {
-                if (identifiable.getName().equals(name))
+                if (identifiable.getName().equalsIgnoreCase(name))
                     toReturn.add(identifiable);
             }
         }

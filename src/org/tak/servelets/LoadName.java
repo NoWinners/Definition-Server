@@ -21,6 +21,7 @@ public class LoadName extends AbstractServlet{
 
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        System.out.println("LoadName");
         Matcher matcher = getPattern().matcher(req.getRequestURI());
         if (matcher.find()) {
             String[] lookups = matcher.group(1).split(",");

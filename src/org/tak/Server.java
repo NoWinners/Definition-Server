@@ -25,6 +25,7 @@ public class Server extends HttpServlet {
         String url = req.getRequestURI();
         for (URLPattern urlPattern : URLPattern.values()) {
             if (urlPattern.matches(url)) {
+                System.out.println("Match!");
                 urlPattern.getServlet().doGet(req, resp);
                 break;
             }
@@ -33,5 +34,9 @@ public class Server extends HttpServlet {
 
     public static List<Identifiable> getIdentifiables() {
         return IDENTIFIABLES;
+    }
+
+    public static Mode getMode() {
+        return MODE;
     }
 }
