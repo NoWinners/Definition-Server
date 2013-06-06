@@ -17,7 +17,7 @@ import java.util.List;
  */
 public class Server extends HttpServlet {
     private static final Mode            MODE       = Mode.NPC;
-    private static final List<Definable> DEFINABLEs = XMLParser.parse(MODE);
+    private static final List<Definable> DEFINABLES = XMLParser.parse(MODE);
 
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse resp)
@@ -33,7 +33,7 @@ public class Server extends HttpServlet {
     }
 
     public static List<Definable> getIdentifiables() {
-        return DEFINABLEs;
+        return DEFINABLES;
     }
 
     public static Mode getMode() {

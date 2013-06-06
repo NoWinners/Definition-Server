@@ -2,16 +2,21 @@ package org.tak.util;
 
 import org.tak.commons.DocElementParser;
 import org.tak.data.Mode;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
+import org.tak.impl.ItemDef;
+import org.w3c.dom.*;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -54,6 +59,45 @@ public class XMLParser {
         }
         inputStream.close();
         return toReturn;
+    }
+    public static void main(String[] args) throws Exception {
+        List<ItemDef> itemDefs = XMLParser.parse(Mode.ITEM);
+        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+        DocumentBuilder db = dbf.newDocumentBuilder();
+        DOMImplementation domImpl = db.getDOMImplementation();
+        DocumentType docType = domImpl.createDocumentType("itemlist", "", "items.dtd");
+        Document doc = domImpl.createDocument(null, "itemlist", docType);
+        Element rootElement = doc.getDocumentElement();
+        for (ItemDef itemDef : itemDefs) {
+            Element currItem = doc.createElement("item");
+            currItem.setAttribute("id", itemDef.getId() + "");
+            currItem.setAttribute("name", itemDef.getName());
+            Element actions = doc.createElement("actions");
+            actions.setAttribute("inventory", Arrays.toString(itemDef.getInventoryActions()));
+            actions.setAttribute("ground", Arrays.toString(itemDef.getGroundActions()));
+            currItem.appendChild(actions);
+
+            Element info = doc.createElement("info");
+            info.setAttribute("stackable", itemDef.isStackable()+"");
+            info.setAttribute("noted", itemDef.isNoted()+"");
+            info.setAttribute("members", Boolean.toString(itemDef.isMembers()));
+            info.setAttribute("wieldLocation", itemDef.getWieldLocation()+"");
+            currItem.appendChild(info);
+
+            Element price = doc.createElement("price");
+            price.setAttribute("store", itemDef.getPrice() + "");
+            currItem.appendChild(price);
+
+            rootElement.appendChild(currItem);
+        }
+        TransformerFactory transformerFactory = TransformerFactory.newInstance();
+        Transformer transformer = transformerFactory.newTransformer();
+        transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+        transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "5");
+        DOMSource source = new DOMSource(doc);
+        StreamResult result = new StreamResult(new File("/Users/Tommy/Items.xml"));
+        transformer.transform(source, result);
+        
     }
 
 }
