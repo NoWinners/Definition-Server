@@ -1,6 +1,6 @@
 package org.tak;
 
-import org.tak.commons.Identifiable;
+import org.tak.commons.Definable;
 import org.tak.data.Mode;
 import org.tak.data.URLPattern;
 import org.tak.util.XMLParser;
@@ -16,8 +16,8 @@ import java.util.List;
  * 6/2/13
  */
 public class Server extends HttpServlet {
-    private static final Mode MODE = Mode.NPC;
-    private static final List<Identifiable> IDENTIFIABLES = XMLParser.parse(MODE);
+    private static final Mode            MODE       = Mode.NPC;
+    private static final List<Definable> DEFINABLEs = XMLParser.parse(MODE);
 
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse resp)
@@ -32,8 +32,8 @@ public class Server extends HttpServlet {
         }
     }
 
-    public static List<Identifiable> getIdentifiables() {
-        return IDENTIFIABLES;
+    public static List<Definable> getIdentifiables() {
+        return DEFINABLEs;
     }
 
     public static Mode getMode() {

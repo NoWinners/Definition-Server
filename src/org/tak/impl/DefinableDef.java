@@ -2,8 +2,8 @@ package org.tak.impl;
 
 import com.google.appengine.labs.repackaged.org.json.JSONException;
 import com.google.appengine.labs.repackaged.org.json.JSONWriter;
+import org.tak.commons.Definable;
 import org.tak.commons.DocElementParser;
-import org.tak.commons.Identifiable;
 import org.w3c.dom.Element;
 
 /**
@@ -11,7 +11,7 @@ import org.w3c.dom.Element;
  * 6/2/13
  */
 //this class can represent NPCs or GameObjects, as the classes were almost identical
-public class IdentifiableDef extends DocElementParser implements Identifiable {
+public class DefinableDef extends DocElementParser implements Definable {
     private int    id;
     private String name;
 

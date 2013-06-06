@@ -2,15 +2,15 @@ package org.tak.impl;
 
 import com.google.appengine.labs.repackaged.org.json.JSONException;
 import com.google.appengine.labs.repackaged.org.json.JSONWriter;
+import org.tak.commons.Definable;
 import org.tak.commons.DocElementParser;
-import org.tak.commons.Identifiable;
 import org.w3c.dom.Element;
 
 /**
  * User: Tommy
  * 6/2/13
  */
-public class ItemDef extends DocElementParser implements Identifiable {
+public class ItemDef extends DocElementParser implements Definable {
     private String   name;
     private int      id;
     private int      price;

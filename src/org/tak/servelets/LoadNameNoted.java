@@ -1,8 +1,8 @@
 package org.tak.servelets;
 
 import org.tak.Server;
+import org.tak.commons.Definable;
 import org.tak.commons.Filter;
-import org.tak.commons.Identifiable;
 import org.tak.data.Mode;
 import org.tak.impl.ItemDef;
 
@@ -20,15 +20,15 @@ public class LoadNameNoted extends LoadName {
         super(pattern);
     }
     @Override
-    protected Filter<Identifiable> getFilter(String[] lookups) {
+    protected Filter<Definable> getFilter(String[] lookups) {
         if (Server.getMode().equals(Mode.ITEM)) {
             System.out.println("Noted name");
             final List<String> names = new ArrayList<>();
             Collections.addAll(names,lookups);
-            return new Filter<Identifiable>() {
+            return new Filter<Definable>() {
                 @Override
-                public boolean accept(Identifiable identifiable) {
-                    ItemDef itemDef = (ItemDef) identifiable;
+                public boolean accept(Definable definable) {
+                    ItemDef itemDef = (ItemDef) definable;
                     return names.contains(itemDef.getName()) && itemDef.isNoted();
                 }
             };

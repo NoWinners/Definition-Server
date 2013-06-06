@@ -1,7 +1,7 @@
 package org.tak.data;
 
 import org.tak.commons.DocElementParser;
-import org.tak.impl.IdentifiableDef;
+import org.tak.impl.DefinableDef;
 import org.tak.impl.ItemDef;
 
 /**
@@ -9,8 +9,8 @@ import org.tak.impl.ItemDef;
  * 6/2/13
  */
 public enum Mode {
-    NPC("npc", IdentifiableDef.class, "Npcs-lowercase.xml"),
-    GAME_OBJECT("gameobject", IdentifiableDef.class, ""),
+    NPC("npc", DefinableDef.class, "Npcs-lowercase.xml"),
+    GAME_OBJECT("gameobject", DefinableDef.class, ""),
     ITEM("item", ItemDef.class, "Items-lowercase.xml");
 
 

@@ -1,9 +1,10 @@
 package org.tak.servelets;
 
 import org.tak.Server;
+import org.tak.commons.Definable;
 import org.tak.commons.Filter;
-import org.tak.commons.Identifiable;
 import org.tak.util.IdentifiableSearch;
+import org.tak.util.JSON;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,7 +13,6 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -38,17 +38,16 @@ public class LoadName extends AbstractServlet{
                     e.printStackTrace();
                 }
             }
-            List<Identifiable> identifiables = IdentifiableSearch.search(Server.getIdentifiables(), getFilter(lookups));
-
+            JSON.writeJSON(IdentifiableSearch.search(Server.getIdentifiables(), getFilter(lookups)),resp.getWriter());
         }
     }
-    protected Filter<Identifiable> getFilter(String[] lookups) {
+    protected Filter<Definable> getFilter(String[] lookups) {
         final ArrayList<String> strings = new ArrayList<>();
         Collections.addAll(strings,lookups);
-        return new Filter<Identifiable>() {
+        return new Filter<Definable>() {
             @Override
-            public boolean accept(Identifiable identifiable) {
-                return strings.contains(identifiable.getName());
+            public boolean accept(Definable definable) {
+                return strings.contains(definable.getName());
             }
         };
     }

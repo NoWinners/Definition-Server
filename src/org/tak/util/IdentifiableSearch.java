@@ -1,7 +1,7 @@
 package org.tak.util;
 
+import org.tak.commons.Definable;
 import org.tak.commons.Filter;
-import org.tak.commons.Identifiable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,22 +11,22 @@ import java.util.List;
  * 6/2/13
  */
 public class IdentifiableSearch {
-    public static List<Identifiable> searchByName(List<Identifiable> list, String... names) {
-        ArrayList<Identifiable> toReturn = new ArrayList<>();
-        for (Identifiable identifiable : list) {
+    public static List<Definable> searchByName(List<Definable> list, String... names) {
+        ArrayList<Definable> toReturn = new ArrayList<>();
+        for (Definable definable : list) {
             for (String name : names) {
-                if (identifiable.getName().equalsIgnoreCase(name))
-                    toReturn.add(identifiable);
+                if (definable.getName().equalsIgnoreCase(name))
+                    toReturn.add(definable);
             }
         }
         return toReturn;
     }
 
-    public static List<Identifiable> search(List<Identifiable> identifiables, Filter<Identifiable> filter) {
-        List<Identifiable> toReturn = new ArrayList<>();
-        for (Identifiable identifiable : identifiables) {
-            if (filter.accept(identifiable))
-                toReturn.add(identifiable);
+    public static List<Definable> search(List<Definable> definables, Filter<Definable> filter) {
+        List<Definable> toReturn = new ArrayList<>();
+        for (Definable definable : definables) {
+            if (filter.accept(definable))
+                toReturn.add(definable);
         }
         return toReturn;
     }
