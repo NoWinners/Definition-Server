@@ -6,8 +6,6 @@ import org.tak.commons.DocElementParser;
 import org.tak.commons.Identifiable;
 import org.w3c.dom.Element;
 
-import java.io.PrintWriter;
-
 /**
  * User: Tommy
  * 6/2/13
@@ -47,9 +45,8 @@ public class ItemDef extends DocElementParser implements Identifiable {
         return id;
     }
 
-    public void writeJSON(PrintWriter printWriter) {
+    public void writeJSON(JSONWriter jsonWriter) {
         try {
-            JSONWriter jsonWriter = new JSONWriter(printWriter);
             jsonWriter.object();
             jsonWriter.key("name").value(name);
             jsonWriter.key("id").value(id);

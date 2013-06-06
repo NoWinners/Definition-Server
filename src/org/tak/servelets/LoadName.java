@@ -39,10 +39,7 @@ public class LoadName extends AbstractServlet{
                 }
             }
             List<Identifiable> identifiables = IdentifiableSearch.search(Server.getIdentifiables(), getFilter(lookups));
-            System.out.println(identifiables.size());
-            for (Identifiable identifiable : identifiables) {
-                identifiable.writeJSON(resp.getWriter());
-            }
+
         }
     }
     protected Filter<Identifiable> getFilter(String[] lookups) {

@@ -13,5 +13,5 @@ public interface Identifiable {
 
     public int getId();
 
-    public void writeJSON(PrintWriter printWriter);
+    public void writeJSON(JSONWriter jsonWriter);
 }

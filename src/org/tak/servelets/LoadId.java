@@ -1,14 +1,13 @@
 package org.tak.servelets;
 
 
+import com.google.appengine.labs.repackaged.org.json.JSONException;
+import com.google.appengine.labs.repackaged.org.json.JSONWriter;
 import org.tak.Server;
-import org.tak.commons.Identifiable;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -26,11 +25,20 @@ public class LoadId extends AbstractServlet {
             throws IOException {
         Matcher matcher = getPattern().matcher(req.getRequestURI());
         if (matcher.find()) {
-            List<Identifiable> defs = new ArrayList<>();
             String[] lookups = matcher.group(1).split(",");
+            JSONWriter jsonWriter = new JSONWriter(resp.getWriter());
+            try {
+                jsonWriter.array();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
             for (String lookup : lookups) {
-                Server.getIdentifiables().get(Integer.parseInt(lookup)).writeJSON(resp.getWriter());
-
+                Server.getIdentifiables().get(Integer.parseInt(lookup)).writeJSON(jsonWriter);
+            }
+            try {
+                jsonWriter.endArray();
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
         }
     }
