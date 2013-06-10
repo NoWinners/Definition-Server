@@ -16,12 +16,13 @@ import java.util.List;
  * 6/2/13
  */
 public class Server extends HttpServlet {
-    private static final Mode            MODE       = Mode.NPC;
+    private static final Mode            MODE       = Mode.ITEM;
     private static final List<Definable> DEFINABLES = XMLParser.parse(MODE);
 
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws IOException {
+
         String url = req.getRequestURI();
         for (URLPattern urlPattern : URLPattern.values()) {
             if (urlPattern.matches(url)) {

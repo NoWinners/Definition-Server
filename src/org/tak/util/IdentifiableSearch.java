@@ -23,9 +23,9 @@ public class IdentifiableSearch {
     }
 
     public static List<Definable> search(List<Definable> definables, Filter<Definable> filter) {
+
         List<Definable> toReturn = new ArrayList<>();
         for (Definable definable : definables) {
-            System.out.println(definable);
             if (filter.accept(definable))
                 toReturn.add(definable);
         }
