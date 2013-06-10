@@ -5,12 +5,20 @@
 		  http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
            version="2.5">
     <servlet>
-        <servlet-name>definitionloader</servlet-name>
-        <servlet-class>org.tak.Server</servlet-class>
+        <servlet-name>name</servlet-name>
+        <servlet-class>org.tak.servelets.LoadName</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>definitionloader</servlet-name>
-        <url-pattern>/*</url-pattern>
+        <servlet-name>name</servlet-name>
+        <url-pattern>/load/name/</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>id</servlet-name>
+        <servlet-class>org.tak.servelets.LoadId</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>id</servlet-name>
+        <url-pattern>/load/id/</url-pattern>
     </servlet-mapping>
 
 </web-app>

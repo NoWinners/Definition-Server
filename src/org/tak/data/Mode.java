@@ -9,9 +9,9 @@ import org.tak.impl.ItemDef;
  * 6/2/13
  */
 public enum Mode {
-    NPC("npc", DefinableDef.class, "Npcs-lowercase.xml"),
-    GAME_OBJECT("gameobject", DefinableDef.class, ""),
-    ITEM("item", ItemDef.class, "Items-lowercase.xml");
+    NPC("npc", DefinableDef.class, "Npcs-762.xml"),
+    GAME_OBJECT("gameobject", DefinableDef.class, "Objects-763.xml"),
+    ITEM("item", ItemDef.class, "Items-762.xml");
 
 
     private final String                            tagName;

@@ -2,13 +2,16 @@ package org.tak.util;
 
 import org.tak.commons.DocElementParser;
 import org.tak.data.Mode;
+import org.tak.impl.DefinableDef;
 import org.tak.impl.ItemDef;
 import org.w3c.dom.*;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
@@ -61,6 +64,34 @@ public class XMLParser {
         return toReturn;
     }
     public static void main(String[] args) throws Exception {
+        int i = parse(Mode.GAME_OBJECT).size();
+        System.out.println(i);
+
+    }
+    private static void transformNPCs() throws Exception {
+        List<DefinableDef> definableDefs = parse(Mode.NPC);
+        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+        DocumentBuilder db = dbf.newDocumentBuilder();
+        DOMImplementation domImpl = db.getDOMImplementation();
+        DocumentType docType = domImpl.createDocumentType("npclist", "", "npcs.dtd");
+        Document doc = domImpl.createDocument(null, "npclist", docType);
+        Element rootElement = doc.getDocumentElement();
+        for (DefinableDef itemDef : definableDefs) {
+            Element currItem = doc.createElement("npc");
+            currItem.setAttribute("id", itemDef.getId() + "");
+            currItem.setAttribute("name", itemDef.getName());
+
+            rootElement.appendChild(currItem);
+        }
+        TransformerFactory transformerFactory = TransformerFactory.newInstance();
+        Transformer transformer = transformerFactory.newTransformer();
+        transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+        transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "5");
+        DOMSource source = new DOMSource(doc);
+        StreamResult result = new StreamResult(new File("/Users/Tommy/Npcs.xml"));
+        transformer.transform(source, result);
+    }
+    private static void transformItems() throws TransformerException, ParserConfigurationException {
         List<ItemDef> itemDefs = XMLParser.parse(Mode.ITEM);
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         DocumentBuilder db = dbf.newDocumentBuilder();
@@ -97,7 +128,6 @@ public class XMLParser {
         DOMSource source = new DOMSource(doc);
         StreamResult result = new StreamResult(new File("/Users/Tommy/Items.xml"));
         transformer.transform(source, result);
-        
     }
 
 }
