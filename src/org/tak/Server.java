@@ -11,7 +11,7 @@ import java.util.List;
  * 6/2/13
  */
 public class Server {
-    private static final Mode            MODE       = Mode.NPC;
+    private static final Mode            MODE       = Mode.ITEM;
     private static final List<Definable> DEFINABLES = XMLParser.parse(MODE);
 
     public static List<Definable> getIdentifiables() {

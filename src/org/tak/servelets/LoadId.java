@@ -28,7 +28,10 @@ public class LoadId extends HttpServlet {
                 e.printStackTrace();
             }
             for (String lookup : lookups) {
-                Server.getIdentifiables().get(Integer.parseInt(lookup)).writeJSON(jsonWriter);
+                int i = Integer.parseInt(lookup);
+                if (i < Server.getIdentifiables().size()) {
+                    Server.getIdentifiables().get(i).writeJSON(jsonWriter);
+                }
             }
             try {
                 jsonWriter.endArray();

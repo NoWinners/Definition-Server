@@ -33,7 +33,7 @@ public class LoadName extends HttpServlet {
 
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        System.out.println("LoadName");
+        //System.out.println("LoadName");
         if (req.getParameter("names")!=null) {
             String[] lookups = req.getParameter("names").split(",");
             for (int i = 0; i < lookups.length; i++) {
@@ -66,7 +66,7 @@ public class LoadName extends HttpServlet {
                 JSON.writeJSON(DefinableSearch.searchByName(Server.getIdentifiables(), lookups), resp.getWriter());
             }
         } else {
-            System.out.println("null");
+            //System.out.println("null");
         }
     }
 
